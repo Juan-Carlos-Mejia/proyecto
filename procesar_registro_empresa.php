@@ -38,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Cerrar conexión
             $conn->close();
             // Redirigir a una página de éxito
-            header("Location: admin.php");
+            header("Location: Empresa.php");
             exit();
         } else {
             // Error al registrar la empresa, almacenar mensaje en sesión
@@ -46,17 +46,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Cerrar conexión
             $conn->close();
             // Redirigir a una página de error
-            header("Location: empresa.php");
+            header("Location: Empresa.php");
             exit();
         }
     } else {
         // Redirigir si no se enviaron todos los campos necesarios
-        header("Location: empresa.php");
+        header("Location: Empresa.php");
         exit();
     }
 } else {
     // Redirigir si no se ha enviado el formulario de registro de empresa
-    header("Location: empresa.php");
+    header("Location: Empresa.php");
     exit();
 }
 ?>

@@ -117,9 +117,6 @@
             <p>finaliza</p>
             <input type="date" name="fecha_final" placeholder="Fecha Final" required>
             <textarea name="descripcion" rows="4" placeholder="Descripción"></textarea>
-            <br><br>
-            <input type="file" name="fotografias[]" multiple accept="image/*">
-            <br><br>
             <div>
                 <button type="submit">Agregar</button>
                 <button type="button" class="cancelar" onclick="window.location.href='admin.php'">Cancelar</button>

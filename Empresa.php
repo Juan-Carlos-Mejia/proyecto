@@ -64,24 +64,7 @@ session_start(); // Inicia la sesión si no está iniciada
 
     <div class="registro-container">
         <h2>Registro de Empresa</h2>
-        <form action="procesar_registro_empresa.php" method="post">
-            <input type="text" name="nombre_empresa" placeholder="Nombre de la Empresa" required>
-            <input type="url" name="sitio_web" placeholder="Sitio Web">
-            <input type="text" name="direccion" placeholder="Dirección" required>
-            <input type="tel" name="telefono" placeholder="Teléfono" required>
-            <textarea name="info_contacto" rows="4" placeholder="Información de Contacto"></textarea>
-            <div>
-                <button type="submit">Registrar</button>
-                <button type="button" class="cancelar" onclick="window.location.href='admin.php'">Cancelar</button>
-            </div>
-        </form>
-    </div>
-
-    <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro de Campaña</title>
-    <style>
+        <style>
         body {
             margin: 0;
             padding: 0;
@@ -154,6 +137,23 @@ session_start(); // Inicia la sesión si no está iniciada
             background-color: #dc3545;
         }
     </style>
+        <form action="procesar_registro_empresa.php" method="post">
+            <input type="text" name="nombre_empresa" placeholder="Nombre de la Empresa" required>
+            <input type="url" name="sitio_web" placeholder="Sitio Web">
+            <input type="text" name="direccion" placeholder="Dirección" required>
+            <input type="tel" name="telefono" placeholder="Teléfono" required>
+            <textarea name="info_contacto" rows="4" placeholder="Información de Contacto"></textarea>
+            <div>
+                <button type="submit">Registrar</button>
+                <button type="button" class="cancelar" onclick="window.location.href='admin.php'">Cancelar</button>
+            </div>
+        </form>
+    </div>
+
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Campaña</title>
 </head>
 <body>
     <div class="tabla-container">
@@ -161,56 +161,87 @@ session_start(); // Inicia la sesión si no está iniciada
         <table>
             <tr>
                 <th>Nombre de la Empresa</th>
-                <th>SitioWeb</th>
+                <th>Sitio Web</th>
                 <th>Direccion</th>
                 <th>Telefono</th>
                 <th>Contacto</th>
                 <th>Acciones</th>
             </tr>
-            <!-- Aquí se generarán las filas de la tabla con datos dinámicos -->
-            <!-- Puedes usar PHP para obtener los datos de la base de datos y mostrarlos aquí -->
-            <!-- Por simplicidad, voy a agregar un ejemplo de fila estática -->
-            <tr>
-                <td>Nombre Empresa</td>
-                <td>Sitio web</td>
-                <td>www.ejemplo.com</td>
-                <td>37489332</td>
-                <td>info de contacto</td>
-                <td>
-                    <!-- Botones de editar y eliminar -->
-                    <div class="btn-container">
-                        <form action="editar_registro.php" method="post">
-                            <!-- Aquí puedes incluir campos ocultos con los datos del registro -->
-                            <input type="hidden" name="empresa_id" value="1">
-                            <button type="submit" class="editar-btn">Editar</button>
-                        </form>
-                        <form action="eliminar_registro.php" method="post">
-                            <!-- Aquí puedes incluir campos ocultos con los datos del registro -->
-                            <input type="hidden" name="empresa_id" value="1">
-                            <button type="submit" class="eliminar-btn">Eliminar</button>
-                        </form>
-                    </div>
-                </td>
-            </tr>
+            </thead>
+            <tbody>
+            <?php
+            // Conexión a la base de datos
+            $servername = "localhost";
+            $username_db = "root";
+            $password_db = "";
+            $dbname = "proyecto_db";
+
+            // Crear conexión
+            $conn = new mysqli($servername, $username_db, $password_db, $dbname);
+
+            // Verificar conexión
+            if ($conn->connect_error) {
+                die("Conexión fallida: " . $conn->connect_error);
+            }
+
+            // Query para obtener las campañas
+            $sql = "SELECT id, nombre_empresa, sitio_web, direccion, telefono, info_contacto FROM empresas";
+            $result = $conn->query($sql);
+
+            // Comprobar si hay resultados
+            if ($result->num_rows > 0) {
+                // Si hay resultados, mostrarlos en la tabla
+                while($row = $result->fetch_assoc()) {
+                    echo "<tr>";
+                    echo "<td>" . $row["nombre_empresa"] . "</td>";
+                    echo "<td>" . $row["sitio_web"] . "</td>";
+                    echo "<td>" . $row["direccion"] . "</td>";
+                    echo "<td>" . $row["telefono"] . "</td>";
+                    echo "<td>" . $row["info_contacto"] . "</td>";
+                    echo "<td>";
+                    echo "<button class='editar-btn' onclick='editarRegistro(" . $row['id'] . ")'>Editar</button>";
+                    echo "<button class='eliminar-btn' onclick='eliminarRegistro(" . $row['id'] . ")'>Eliminar</button>";
+                    echo "</td>";
+                    echo "</tr>";
+                }
+            } else {
+                // Si no hay resultados, mostrar un mensaje
+                echo "<tr><td colspan='7'>No se encontraron empresas.</td></tr>";
+            }
+
+            // Cerrar conexión
+            $conn->close();
+            ?>
+        </tbody>
         </table>
     </div>
-</body>
     <script>
-        // Esta función carga los mensajes de sesión PHP
-        function cargarMensajes() {
-            <?php
-            if (isset($_SESSION['success_message'])) {
-                echo "alert('" . $_SESSION['success_message'] . "');";
-                unset($_SESSION['success_message']); // Elimina el mensaje de la sesión
-            } elseif (isset($_SESSION['error_message'])) {
-                echo "alert('" . $_SESSION['error_message'] . "');";
-                unset($_SESSION['error_message']); // Elimina el mensaje de la sesión
-            }
-            ?>
+    // Función para eliminar un registro
+    function eliminarRegistro(id) {
+        if (confirm("¿Estás seguro de que deseas eliminar este registro?")) {
+            // Realizar solicitud AJAX al servidor
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "eliminar_registro_empresa.php", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    // Recargar la página después de eliminar el registro
+                    window.location.reload();
+                }
+            };
+            xhr.send("id=" + id);
         }
+    }
+</script>
+<script>
+    // Función para abrir el formulario de edición
+    function editarRegistro(id) {
+        // Redirigir a una página de edición pasando el ID del registro como parámetro de la URL
+        window.location.href = "editar_registro_empresa.php?id=" + id;
+    }
+</script>
 
-        // Llama a la función al cargar la página
-        window.onload = cargarMensajes;
-    </script>
+
+
 </body>
 </html>
