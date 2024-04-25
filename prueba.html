@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Campaña</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .registro-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            margin: 50px auto 50px auto; /* Mueve la tabla hacia arriba 50px y la centra horizontalmente */
+            overflow-x: auto;
+        }
+
+        .registro-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+            white-space: nowrap;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            color: #333;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        td:last-child {
+            text-align: center;
+        }
+
+        .btn-container {
+            display: flex;
+        }
+
+        .editar-btn, .eliminar-btn {
+            padding: 6px 10px;
+            margin-right: 5px;
+            background-color: #007bff;
+            border: none;
+            color: #fff;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .eliminar-btn {
+            background-color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+    <div class="registro-container">
+        <!-- Formulario de registro existente -->
+    </div>
+    <div class="registro-container">
+        <h2>Registros</h2>
+        <table>
+            <tr>
+                <th>Nombre de la Empresa</th>
+                <th>Dirección</th>
+                <th>Inicio</th>
+                <th>Finaliza</th>
+                <th>Descripción</th>
+                <th>Imagen</th>
+                <th>Acciones</th>
+            </tr>
+            <!-- Aquí se generarán las filas de la tabla con datos dinámicos -->
+            <!-- Por simplicidad, voy a agregar un ejemplo de fila estática -->
+            <tr>
+                <td>Ejemplo Empresa</td>
+                <td>Ejemplo Dirección</td>
+                <td>2024-04-24</td>
+                <td>2024-04-30</td>
+                <td>Ejemplo Descripción</td>
+                <td><img src="ruta_de_la_imagen.jpg" alt="Imagen de la Empresa" width="100"></td>
+                <td>
+                    <!-- Botones de editar y eliminar -->
+                    <div class="btn-container">
+                        <form action="editar_registro.php" method="post">
+                            <!-- Aquí puedes incluir campos ocultos con los datos del registro -->
+                            <input type="hidden" name="empresa_id" value="1">
+                            <button type="submit" class="editar-btn">Editar</button>
+                        </form>
+                        <form action="eliminar_registro.php" method="post">
+                            <!-- Aquí puedes incluir campos ocultos con los datos del registro -->
+                            <input type="hidden" name="empresa_id" value="1">
+                            <button type="submit" class="eliminar-btn">Eliminar</button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

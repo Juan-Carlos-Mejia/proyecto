@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar sesión</title>
+    <link rel="stylesheet" href="estilos.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ccc;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .login-container {
+            background-color: #6eaadb;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            text-align: center; /* Alinea el contenido al centro */
+        }
+
+        .login-container h2 {
+            margin-bottom: 20px;
+        }
+
+        .login-container input[type="text"],
+        .login-container input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #000;
+            border-radius: 3px;
+            box-sizing: border-box;
+        }
+
+        .login-container button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            border: 1px solid #000;
+            color: #fff;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .login-container button:hover {
+            background-color: #000;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="login-container">
+        <h2>Iniciar sesión</h2>
+        <img src="logo2.png" alt="Logo" style="width: 180px; margin-top: 20px;">
+        <br><br>
+        <form id="loginForm" action="procesar_login.php" method="post" onsubmit="return validateForm()">
+            <input type="text" id="username" name="username" placeholder="Nombre de usuario" required>
+            <input type="password" id="password" name="password" placeholder="Contraseña" required>
+            <button type="submit" class="iniciar-sesion">Iniciar sesión</button>
+        </form>
+        <br><br>
+        <button type="button" class="cancelar" onclick="window.location.href='index.html'">Cancelar</button>
+    </div>
+
+    <script>
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const error = urlParams.get('error');
+            if (error === '1') {
+                alert('usuario o contraseña incorrectos.');
+            } else if (error === '2') {
+                alert('Usuario o contraseña incorrectos. Por favor, inténtalo de nuevo.');
+            }
+        };
+    </script>
+</body>
+
+</html>
