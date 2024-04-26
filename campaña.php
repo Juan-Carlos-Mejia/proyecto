@@ -130,6 +130,7 @@
             <thead>
                 <tr>
                     <th>Nombre</th>
+                    <th>dirección</th>
                     <th>Fecha de Inicio</th>
                     <th>Fecha Final</th>
                     <th>Empresa</th>
@@ -154,7 +155,7 @@
             }
 
             // Query para obtener las campañas
-            $sql = "SELECT id, nombre_empresa, fecha_inicio, fecha_final, descripcion, imagen FROM campanas";
+            $sql = "SELECT id, nombre_empresa,direccion, fecha_inicio, fecha_final, descripcion, imagen FROM campanas";
             $result = $conn->query($sql);
 
             // Comprobar si hay resultados
@@ -163,6 +164,7 @@
                 while($row = $result->fetch_assoc()) {
                     echo "<tr>";
                     echo "<td>" . $row["nombre_empresa"] . "</td>";
+                    echo "<td>" . $row["direccion"] . "</td>";
                     echo "<td>" . $row["fecha_inicio"] . "</td>";
                     echo "<td>" . $row["fecha_final"] . "</td>";
                     echo "<td>" . $row["nombre_empresa"] . "</td>";

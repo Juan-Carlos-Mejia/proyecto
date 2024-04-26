@@ -3,10 +3,10 @@
 if (isset($_POST['id'])) {
     $id = $_POST['id'];
     $nombre_empresa = $_POST['nombre_empresa'];
-    $sitio_web = $_POST['sitio_web'];
+    $sitio_web = isset($_POST['sitio_web']) ? $_POST['sitio_web'] : null;
     $direccion = $_POST['direccion'];
     $telefono = $_POST['telefono'];
-    $info_contacto = $_POST['info_contacto'];
+    $info_contacto = isset($_POST['info_contacto']) ? $_POST['info_contacto'] : null;
     
     // Conexión a la base de datos
     $servername = "localhost";

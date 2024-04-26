@@ -105,7 +105,7 @@ if (isset($_GET['id'])) {
         <form id="formulario-edicion" action="procesar_edicion_empresas.php" method="post">
             <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
             <input type="text" name="nombre_empresa" placeholder="Nombre de la Empresa" value="<?php echo $row['nombre_empresa']; ?>" required>
-            <input type="text" name="sitio_Web" placeholder="sitio_web" value="<?php echo $row['sitio_web']; ?>" required>
+            <input type="text" name="sitio_web" placeholder="Sitio Web" value="<?php echo $row['sitio_web']; ?>" required>
             <input type="text" name="direccion" value="<?php echo $row['direccion']; ?>" required>
             <input type="text" name="telefono" value="<?php echo $row['telefono']; ?>" required>
             <textarea name="info_contacto" rows="4" placeholder="info_contacto"><?php echo $row['info_contacto']; ?></textarea>

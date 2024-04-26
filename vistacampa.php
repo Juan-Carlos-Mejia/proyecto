@@ -36,6 +36,7 @@
         <thead>
             <tr>
                 <th>Nombre</th>
+                <th>dirección</th>
                 <th>Fecha de Inicio</th>
                 <th>Fecha Final</th>
                 <th>Empresa</th>
@@ -59,7 +60,7 @@ if ($conn->connect_error) {
 }
 
 // Query para obtener las campañas
-$sql = "SELECT nombre_empresa, fecha_inicio, fecha_final, nombre_empresa, descripcion FROM campanas";
+$sql = "SELECT nombre_empresa, direccion, fecha_inicio, fecha_final, nombre_empresa, descripcion FROM campanas";
 $result = $conn->query($sql);
 
 // Comprobar si hay resultados
@@ -68,6 +69,7 @@ if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
         echo "<tr>";
         echo "<td>" . $row["nombre_empresa"] . "</td>";
+        echo "<td>" . $row["direccion"] . "</td>";
         echo "<td>" . $row["fecha_inicio"] . "</td>";
         echo "<td>" . $row["fecha_final"] . "</td>";
         echo "<td>" . $row["nombre_empresa"] . "</td>";
